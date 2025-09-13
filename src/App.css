@@ -1,0 +1,249 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #0a3c2f;
+}
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  background-color: #0d614b;
+  padding: 40px 60px;
+}
+h2 {
+  font-size: 3em;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.reset {
+  padding: 15px 20px;
+  color: #367c65;
+  background: #fff;
+  border: none;
+  font-size: 1.5em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 600;
+}
+.reset:focus {
+  color: #fff;
+  background-color: #367c65;
+}
+.game {
+  width: 430px;
+  height: 430px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  transform-style: preserve-3d;
+  perspective: 500px;
+}
+.item {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+  background-color: #fff;
+  transform: rotateX(180deg);
+  transition: 0.25s;
+}
+.item.boxOpen {
+  transform: rotateX(0deg);
+}
+.item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #209d7b;
+  transition: 0.25s;
+  transform: rotateY(0deg);
+  backface-visibility: hidden;
+}
+.boxOpen::after,
+.boxMatch:after {
+  transform: rotateX(180deg);
+}
+
+/* Yutganda chiqadigan modal */
+/* Toast xabarlar uchun */
+.custom-alert {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  z-index: 9999;
+  animation: fadeInOut 3s ease-in-out;
+}
+.custom-alert.error {
+  background: #e53935;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* O‘yinni yutganda chiqadigan modal */
+.win-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.win-content {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  animation: popIn 0.3s ease;
+}
+.win-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #0a3c2f;
+}
+.win-content button {
+  padding: 10px 20px;
+  background: #0d614b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.win-content button:hover {
+  background: #209d7b;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Pastdagi auth qismi */
+.auth-section {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+.auth-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+}
+.auth-box input {
+  padding: 8px;
+}
+.auth-box button {
+  padding: 8px;
+  background: #209d7b;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+/* Hozirgi kartalar o‘lchami 100x100 va gap 10px edi. 
+   Kichik ekranda ularni avtomatik kichraytiramiz */
+@media (max-width: 768px) {
+  .game {
+    width: 320px;
+    height: auto;
+    gap: 6px;
+  }
+  .item {
+    width: 70px;
+    height: 70px;
+    font-size: 2em;
+  }
+  h2 {
+    font-size: 2em;
+  }
+
+  .auth-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .auth-box {
+    width: 90%;
+    padding: 15px;
+  }
+  .auth-box input {
+    font-size: 0.9rem;
+  }
+  .auth-box button {
+    font-size: 1rem;
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game {
+    width: 260px;
+    gap: 5px;
+  }
+  .item {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5em;
+  }
+  .win-content {
+    padding: 20px;
+  }
+  .win-content h2 {
+    font-size: 1.3rem;
+  }
+  .win-content button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
